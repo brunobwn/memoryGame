@@ -17,6 +17,8 @@ const cards = [
 
 let firstChoice = "";
 let secChoice = "";
+let score = 0;
+let strikeCount = 0;
 
 const flipCard = ({ target }) => {
   let card = target.closest(".card");
@@ -49,6 +51,7 @@ const checkCards = () => {
     secChoice = "";
 
     addScore();
+    strikeCount++;
   } else {
     setTimeout(() => {
       firstChoice.classList.remove("flipped");
@@ -56,23 +59,22 @@ const checkCards = () => {
 
       firstChoice = "";
       secChoice = "";
+
+      strikeCount = 0;
     }, 250);
   }
 };
 
-let strikeCount = 0;
-let score = 0;
-
 const addScore = () => {
-  const hitPoint = 100;
+  const hitPoint = 1116;
 
-  const timeBonus = minutes + seconds / 60;
+  const timeBonus = 1.25 + minutes;
 
-  let hitTotal = (hitPoint * ((1 + strikeCount) / 10)) / timeBonus;
+  let hitTotal = (hitPoint * (1 + strikeCount)) / timeBonus;
 
   score += hitTotal;
 
-  scoreTag.innerHTML = score;
+  scoreTag.innerHTML = Math.round(score);
 };
 
 const createElement = (tag, classes = []) => {
