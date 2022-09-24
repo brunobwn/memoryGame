@@ -166,7 +166,7 @@ const startGame = (numCards) => {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 
-  gameChars.map((card) => {
+  gameCharsSuffled.map((card) => {
     grid.appendChild(createCard(card[0], card[1]));
   });
 
