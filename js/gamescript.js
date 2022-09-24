@@ -4,6 +4,8 @@ const grid = document.querySelector("#gameArea");
 
 const cards = [
   ["morty-pink1", "morty-pink.png"],
+  ["morty-pink1", "morty-pink.png"],
+  ["morty-pink2", "morty-pink.png"],
   ["morty-pink2", "morty-pink.png"],
 ];
 
@@ -11,9 +13,42 @@ let firstChoice = "";
 let secChoice = "";
 
 const flipCard = ({ target }) => {
-  if (firstChoice == "") {
-    console.log(target);
-    target.classList.add("flipped");
+  let card = target.closest(".card");
+  if (firstChoice == "" && secChoice == "") {
+    firstChoice = card;
+    card.classList.add("flipped");
+    return;
+  } else if (firstChoice !== "" && secChoice == "") {
+    secChoice = card;
+    card.classList.add("flipped");
+
+    setTimeout(checkCards, 250);
+  }
+};
+
+const checkCards = () => {
+  const first = firstChoice.getAttribute("name");
+  const second = secChoice.getAttribute("name");
+
+  console.log(first, second);
+
+  if (first === second) {
+    firstChoice.firstChild.classList.add("blocked");
+    secChoice.firstChild.classList.add("blocked");
+
+    firstChoice.removeEventListener("click", flipCard);
+    secChoice.removeEventListener("click", flipCard);
+
+    firstChoice = "";
+    secChoice = "";
+  } else {
+    setTimeout(() => {
+      firstChoice.classList.remove("flipped");
+      secChoice.classList.remove("flipped");
+
+      firstChoice = "";
+      secChoice = "";
+    }, 250);
   }
 };
 
@@ -43,7 +78,7 @@ const createCard = (name, img) => {
 const startGame = () => {
   let addCard = "";
   cards.forEach((card) => {
-    console.log(card[0]);
+    // console.log(card[0]);
     addCard = createCard(card[0], card[1]);
     grid.appendChild(addCard);
   });
