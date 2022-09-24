@@ -52,6 +52,7 @@ header {
   position: relative;
   transition: all 350ms ease;
   transform-style: preserve-3d;
+  cursor: pointer;
 }
 
 .face {
@@ -75,14 +76,9 @@ header {
 }
 
 .blocked {
-  filter: saturate(0);
-  opacity: 0.8;
+  filter: grayscale(75%);
 }
 
 .flipped {
   transform: rotateY(-180deg);
-}
-
-.card:hover {
-  transform: rotateY(180deg);
 }
