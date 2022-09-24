@@ -2,18 +2,22 @@ const scoreTag = document.querySelector("#score");
 const timerTag = document.querySelector("#timer");
 const grid = document.querySelector("#gameArea");
 
-const cards = [
-  ["morty-pink1", "morty-pink.png"],
+const characters = [
+  ["morty-pink", "morty-pink.png"],
   ["scary-terry", "Scary-Terry.jpg"],
-  ["scary-terry", "Scary-Terry.jpg"],
-  ["morty-pink2", "morty-pink.png"],
-  ["morty-pink2", "morty-pink.png"],
-  ["morty-pink1", "morty-pink.png"],
-  ["morty-pink2", "morty-pink.png"],
-  ["morty-pink2", "morty-pink.png"],
-  ["morty-pink1", "morty-pink.png"],
-  ["morty-pink2", "morty-pink.png"],
-  ["morty-pink2", "morty-pink.png"],
+  ["wood-beth", "wood-beth.png"],
+  ["bdsm-couple", "bdsm-couple.png"],
+  ["survivor-jerry", "survivor-jerry.webp"],
+  ["badass-morty", "badass-morty.jpg"],
+  ["jerry", "jerry.jpg"],
+  ["strong-summer", "strong-summer.jpg"],
+  ["rick-vibes", "rick-vibes.jpg"],
+  ["rick-roof", "rick-roof.jpg"],
+  ["rick-bug", "rick-bug.jpg"],
+  ["acid-morty", "acid-morty.jpg"],
+  ["acid-rick", "acid-rick.jpg"],
+  ["evil-morty", "evil-morty.jpg"],
+  ["morty-summer", "morty-summer.jpg"],
 ];
 
 let firstChoice = "";
@@ -87,7 +91,7 @@ const createElement = (tag, classes = []) => {
 };
 
 const createCard = (name, img) => {
-  const card = createElement("article", ["card"]);
+  const card = createElement("article", ["card", "flipped"]);
   const front = createElement("div", ["face", "front"]);
   const back = createElement("div", ["face", "back"]);
 
@@ -130,7 +134,7 @@ const stopTimer = () => {
 
 const startGame = () => {
   let addCard = "";
-  cards.forEach((card) => {
+  characters.forEach((card) => {
     // console.log(card[0]);
     addCard = createCard(card[0], card[1]);
     grid.appendChild(addCard);
