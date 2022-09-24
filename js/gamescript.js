@@ -151,7 +151,7 @@ const startGame = (numCards) => {
   gameMessages.innerHTML = "";
 
   // select random characters for the game
-  let possibleChars = characters;
+  let possibleChars = [...characters];
   let gameChars = [];
   for (i = 0; i < numCards; i++) {
     const random = Math.floor(Math.random() * possibleChars.length);
@@ -161,12 +161,12 @@ const startGame = (numCards) => {
   }
 
   gameChars = [...gameChars, ...gameChars];
-  let gameCharsSuffled = gameChars
+  let gameCharsShuffled = gameChars
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 
-  gameCharsSuffled.map((card) => {
+  gameCharsShuffled.map((card) => {
     grid.appendChild(createCard(card[0], card[1]));
   });
 
