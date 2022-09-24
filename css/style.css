@@ -26,7 +26,8 @@ body {
 }
 
 #wrapper {
-  width: 66rem;
+  width: 100%;
+  padding: 0 clamp(1rem, 20vw, 5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,15 +51,16 @@ header {
 
 #gameArea {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 1rem;
   perspective: 60rem;
   transition: all 500ms ease;
 }
 
 .card {
-  height: calc((100vh - 7rem) / 3);
+  width: 12rem;
   aspect-ratio: 3 / 4;
   position: relative;
   transition: all 350ms ease;
@@ -156,6 +158,8 @@ footer {
   left: 50%;
   transform: translateX(-50%);
   letter-spacing: 0.05rem;
+  text-align: center;
+  height: 2rem;
 }
 
 a,
