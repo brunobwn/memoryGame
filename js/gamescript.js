@@ -27,7 +27,7 @@ let secChoice = "";
 let score = 0;
 let strikeCount = 0;
 // number os pairs cards to the game
-const numCards = 2;
+const numCards = 9;
 
 const flipCard = ({ target }) => {
   let card = target.closest(".card");
