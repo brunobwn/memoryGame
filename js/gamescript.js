@@ -2,7 +2,7 @@ const scoreTag = document.querySelector("#score");
 const timerTag = document.querySelector("#timer");
 const grid = document.querySelector("#gameArea");
 
-const characters = [
+let characters = [
   ["morty-pink", "morty-pink.png"],
   ["scary-terry", "Scary-Terry.jpg"],
   ["wood-beth", "wood-beth.png"],
@@ -91,7 +91,7 @@ const createElement = (tag, classes = []) => {
 };
 
 const createCard = (name, img) => {
-  const card = createElement("article", ["card", "flipped"]);
+  const card = createElement("article", ["card"]);
   const front = createElement("div", ["face", "front"]);
   const back = createElement("div", ["face", "back"]);
 
@@ -113,6 +113,9 @@ let seconds = 0;
 let minutes = 0;
 
 const startTimer = () => {
+  seconds = 0;
+  minutes = 0;
+
   this.loop = setInterval(() => {
     seconds++;
     if (seconds > 59) {
@@ -132,18 +135,45 @@ const stopTimer = () => {
   clearInterval(this.loop);
 };
 
-const startGame = () => {
-  let addCard = "";
-  characters.forEach((card) => {
-    // console.log(card[0]);
-    addCard = createCard(card[0], card[1]);
-    grid.appendChild(addCard);
+const startGame = (numCards = 9) => {
+  let gameChars = [];
+
+  // select random characters for the game
+  for (i = 0; i < numCards; i++) {
+    const random = Math.floor(Math.random() * characters.length);
+
+    gameChars.push(characters[random]);
+    characters.splice(random, 1);
+  }
+
+  gameChars = [...gameChars, ...gameChars];
+  let gameCharsSuffled = gameChars
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+
+  gameChars.map((card) => {
+    console.log(card);
+    grid.appendChild(createCard(card[0], card[1]));
   });
+
   startTimer();
 };
 
 const gameOver = () => {
   console.log("end game");
 };
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+}
 
 startGame();
