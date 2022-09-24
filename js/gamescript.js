@@ -24,11 +24,14 @@ let firstChoice = "";
 let secChoice = "";
 let score = 0;
 let strikeCount = 0;
+// number os pairs cards to the game
+const numCards = 2;
 
 const flipCard = ({ target }) => {
   let card = target.closest(".card");
   if (firstChoice == "" && secChoice == "") {
     firstChoice = card;
+    card.removeEventListener("click", flipCard);
     card.classList.add("flipped");
     return;
   } else if (firstChoice !== "" && secChoice == "") {
@@ -43,8 +46,6 @@ const checkCards = () => {
   const first = firstChoice.getAttribute("name");
   const second = secChoice.getAttribute("name");
 
-  console.log(first, second);
-
   if (first === second) {
     firstChoice.firstChild.classList.add("blocked");
     secChoice.firstChild.classList.add("blocked");
@@ -57,8 +58,11 @@ const checkCards = () => {
 
     addScore();
     strikeCount++;
+    checkEndGame();
   } else {
     setTimeout(() => {
+      firstChoice.addEventListener("click", flipCard);
+
       firstChoice.classList.remove("flipped");
       secChoice.classList.remove("flipped");
 
@@ -135,7 +139,7 @@ const stopTimer = () => {
   clearInterval(this.loop);
 };
 
-const startGame = (numCards = 9) => {
+const startGame = (numCards) => {
   let gameChars = [];
 
   // select random characters for the game
@@ -164,16 +168,11 @@ const gameOver = () => {
   console.log("end game");
 };
 
-/* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+const checkEndGame = () => {
+  const totalHits = document.querySelectorAll(".face.front.blocked").length;
+  if (numCards * 2 === totalHits) {
+    console.log("GANHASTE");
   }
+};
 
-  return array;
-}
-
-startGame();
+startGame(numCards);
