@@ -84,4 +84,31 @@ const startGame = () => {
   });
 };
 
+let seconds = 0;
+let minutes = 0;
+
+const startTimer = () => {
+  this.loop = setInterval(() => {
+    seconds++;
+    if (seconds > 59) {
+      seconds = 0;
+      minutes++;
+    }
+
+    timer.innerHTML = `${minutes}:${seconds}`;
+
+    if (minutes > 59) {
+      gameOver();
+    }
+  }, 1000);
+};
+
+const stopTimer = () => {
+  clearInterval(this.loop);
+};
+
+const gameOver = () => {
+  console.log("end game");
+};
+
 startGame();
