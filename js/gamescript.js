@@ -1,9 +1,15 @@
-const score = document.querySelector("#score");
-const timer = document.querySelector("#timer");
+const scoreTag = document.querySelector("#score");
+const timerTag = document.querySelector("#timer");
 const grid = document.querySelector("#gameArea");
 
 const cards = [
   ["morty-pink1", "morty-pink.png"],
+  ["morty-pink1", "morty-pink.png"],
+  ["morty-pink2", "morty-pink.png"],
+  ["morty-pink2", "morty-pink.png"],
+  ["morty-pink1", "morty-pink.png"],
+  ["morty-pink2", "morty-pink.png"],
+  ["morty-pink2", "morty-pink.png"],
   ["morty-pink1", "morty-pink.png"],
   ["morty-pink2", "morty-pink.png"],
   ["morty-pink2", "morty-pink.png"],
@@ -41,6 +47,8 @@ const checkCards = () => {
 
     firstChoice = "";
     secChoice = "";
+
+    addScore();
   } else {
     setTimeout(() => {
       firstChoice.classList.remove("flipped");
@@ -50,6 +58,21 @@ const checkCards = () => {
       secChoice = "";
     }, 250);
   }
+};
+
+let strikeCount = 0;
+let score = 0;
+
+const addScore = () => {
+  const hitPoint = 100;
+
+  const timeBonus = minutes + seconds / 60;
+
+  let hitTotal = (hitPoint * ((1 + strikeCount) / 10)) / timeBonus;
+
+  score += hitTotal;
+
+  scoreTag.innerHTML = score;
 };
 
 const createElement = (tag, classes = []) => {
@@ -75,14 +98,9 @@ const createCard = (name, img) => {
   return card;
 };
 
-const startGame = () => {
-  let addCard = "";
-  cards.forEach((card) => {
-    // console.log(card[0]);
-    addCard = createCard(card[0], card[1]);
-    grid.appendChild(addCard);
-  });
-};
+function minTwoDigits(n) {
+  return (n < 10 ? "0" : "") + n;
+}
 
 let seconds = 0;
 let minutes = 0;
@@ -95,7 +113,7 @@ const startTimer = () => {
       minutes++;
     }
 
-    timer.innerHTML = `${minutes}:${seconds}`;
+    timerTag.innerHTML = `${minTwoDigits(minutes)}:${minTwoDigits(seconds)}`;
 
     if (minutes > 59) {
       gameOver();
@@ -105,6 +123,16 @@ const startTimer = () => {
 
 const stopTimer = () => {
   clearInterval(this.loop);
+};
+
+const startGame = () => {
+  let addCard = "";
+  cards.forEach((card) => {
+    // console.log(card[0]);
+    addCard = createCard(card[0], card[1]);
+    grid.appendChild(addCard);
+  });
+  startTimer();
 };
 
 const gameOver = () => {
