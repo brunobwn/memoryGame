@@ -30,6 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: all 500ms ease;
 }
 
 header {
@@ -42,6 +43,9 @@ header {
   padding: 0.5rem 1rem;
   word-spacing: 1rem;
   height: 3rem;
+}
+#content {
+  transition: all 500ms ease;
 }
 
 #gameArea {

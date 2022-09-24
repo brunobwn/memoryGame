@@ -148,7 +148,7 @@ const startGame = (numCards) => {
   resetGame();
 
   content.style.display = "none";
-  // gameMessages.innerHTML = "";
+  gameMessages.innerHTML = "";
 
   // select random characters for the game
   let possibleChars = characters;
@@ -177,12 +177,11 @@ const checkEndGame = () => {
   const totalHits = document.querySelectorAll(".face.front.blocked").length;
   if (numCards * 2 === totalHits) {
     stopTimer();
-    removeAllChildNodes(grid);
     setTimeout(() => {
+      removeAllChildNodes(grid);
       gameMessages.innerHTML = "That`s a WIN Morty!";
       content.style.display = "flex";
-    }, 500);
-    console.log("GANHASTE");
+    }, 1000);
   }
 };
 
