@@ -4,7 +4,8 @@ const grid = document.querySelector("#gameArea");
 
 const cards = [
   ["morty-pink1", "morty-pink.png"],
-  ["morty-pink1", "morty-pink.png"],
+  ["scary-terry", "Scary-Terry.jpg"],
+  ["scary-terry", "Scary-Terry.jpg"],
   ["morty-pink2", "morty-pink.png"],
   ["morty-pink2", "morty-pink.png"],
   ["morty-pink1", "morty-pink.png"],
@@ -66,7 +67,7 @@ const checkCards = () => {
 };
 
 const addScore = () => {
-  const hitPoint = 1116;
+  const hitPoint = 1135;
 
   const timeBonus = 1.25 + minutes;
 
