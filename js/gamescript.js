@@ -1,8 +1,10 @@
 const scoreTag = document.querySelector("#score");
 const timerTag = document.querySelector("#timer");
 const grid = document.querySelector("#gameArea");
+const content = document.querySelector("#content");
+const gameMessages = document.querySelector("#gameMessages");
 
-let characters = [
+const characters = [
   ["morty-pink", "morty-pink.png"],
   ["scary-terry", "Scary-Terry.jpg"],
   ["wood-beth", "wood-beth.png"],
@@ -38,7 +40,7 @@ const flipCard = ({ target }) => {
     secChoice = card;
     card.classList.add("flipped");
 
-    setTimeout(checkCards, 250);
+    setTimeout(checkCards, 350);
   }
 };
 
@@ -58,7 +60,7 @@ const checkCards = () => {
 
     addScore();
     strikeCount++;
-    checkEndGame();
+    setTimeout(checkEndGame, 350);
   } else {
     setTimeout(() => {
       firstChoice.addEventListener("click", flipCard);
@@ -128,10 +130,6 @@ const startTimer = () => {
     }
 
     timerTag.innerHTML = `${minTwoDigits(minutes)}:${minTwoDigits(seconds)}`;
-
-    if (minutes > 59) {
-      gameOver();
-    }
   }, 1000);
 };
 
@@ -139,15 +137,27 @@ const stopTimer = () => {
   clearInterval(this.loop);
 };
 
+const resetGame = () => {
+  strikeCount = 0;
+  score = 0;
+  scoreTag.innerHTML = "0";
+  timerTag.innerHTML = "00:00";
+};
+
 const startGame = (numCards) => {
-  let gameChars = [];
+  resetGame();
+
+  content.style.display = "none";
+  // gameMessages.innerHTML = "";
 
   // select random characters for the game
+  let possibleChars = characters;
+  let gameChars = [];
   for (i = 0; i < numCards; i++) {
-    const random = Math.floor(Math.random() * characters.length);
+    const random = Math.floor(Math.random() * possibleChars.length);
 
-    gameChars.push(characters[random]);
-    characters.splice(random, 1);
+    gameChars.push(possibleChars[random]);
+    possibleChars.splice(random, 1);
   }
 
   gameChars = [...gameChars, ...gameChars];
@@ -157,22 +167,29 @@ const startGame = (numCards) => {
     .map(({ value }) => value);
 
   gameChars.map((card) => {
-    console.log(card);
     grid.appendChild(createCard(card[0], card[1]));
   });
 
   startTimer();
 };
 
-const gameOver = () => {
-  console.log("end game");
-};
-
 const checkEndGame = () => {
   const totalHits = document.querySelectorAll(".face.front.blocked").length;
   if (numCards * 2 === totalHits) {
+    stopTimer();
+    removeAllChildNodes(grid);
+    setTimeout(() => {
+      gameMessages.innerHTML = "That`s a WIN Morty!";
+      content.style.display = "flex";
+    }, 500);
     console.log("GANHASTE");
   }
 };
 
-startGame(numCards);
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+// startGame(numCards);
