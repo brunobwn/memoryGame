@@ -3,7 +3,7 @@
 
 :root {
   --primary: #cc1400;
-  --secundary: #f2a500;
+  --secondary: #f2a500;
   --grey: #393e46;
   --light: #eee;
   --dark: #222831;
@@ -61,7 +61,6 @@ header {
   border-radius: 0.8rem;
   transition: all 350ms ease;
   backface-visibility: hidden;
-
   background-position: center;
   background-size: cover;
 }
@@ -72,6 +71,15 @@ header {
 
 .front {
   border: 3px solid var(--primary);
+  transform: rotateY(-180deg);
+}
+
+.blocked {
+  filter: saturate(0);
+  opacity: 0.8;
+}
+
+.flipped {
   transform: rotateY(-180deg);
 }
 
