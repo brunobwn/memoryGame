@@ -27,7 +27,7 @@ Users should be able to:
 
 ### Screenshot
 
-![Desktop screenshot](./Screenshot_preview-desktop.png)
+![Desktop screenshot](https://github.com/brunobwn/memoryGame/blob/main/Screenshot_preview.png)
 
 ### Links
 
