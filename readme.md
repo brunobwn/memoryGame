@@ -1,4 +1,4 @@
-# Rick and Mourty Memory Game in Javascript
+# Rick and Morty Memory Game in Javascript
 
 This is a project to study DOM manipulation in Javascript. A simple and funny memory game, witch had a score based on how long you take to find a pair (-time +points) and right guess streak (multiplier).
 
